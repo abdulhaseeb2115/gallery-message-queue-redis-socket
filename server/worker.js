@@ -1,21 +1,12 @@
 import { Worker } from "bullmq";
-import Redis from "ioredis";
-import { readJobs, writeJobs } from "./utils/fileHandler.js";
+import { io } from "./app.js";
 import {
 	JOB_STATUS,
 	QUEUE_NAME,
 	SOCKET_EVENT_NAME,
 } from "./constants/index.js";
-import { io } from "./app.js";
-
-/**
- * Create redis connection
- */
-const connection = new Redis({
-	host: process.env.REDIS_HOST || "127.0.0.1",
-	port: process.env.REDIS_PORT || 6379,
-	maxRetriesPerRequest: null,
-});
+import { readJobs, writeJobs } from "./utils/fileHandler.js";
+import connection from "./utils/redisConnection.js";
 
 /**
  * Run jobs in a queue
@@ -91,7 +82,11 @@ worker.on("completed", (job, result) => {
 
 worker.on("failed", (job, err) => {
 	// fire socket event
-	io.emit(SOCKET_EVENT_NAME, result);
+	io.emit(SOCKET_EVENT_NAME, {
+		id: job.id,
+		status: JOB_STATUS.failed,
+		image: "",
+	});
 
 	// log details
 	console.log(`\n! Job ${job.id} failed: ${err.message}`);
