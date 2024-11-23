@@ -1,14 +1,17 @@
-import { useEffect, useState } from "react";
-import { toast } from "react-hot-toast";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getJobById } from "../requests";
 import Loader from "../components/Loader";
 import { JOB_STATUS, SOCKET_EVENT_NAME } from "../constants";
+import { getJobById } from "../requests";
 import { socket } from "../socket";
+import handleError from "../utils/errorHandler";
+import handleSlowInternet from "../utils/slowInternetHandler";
+import { NetworkContext } from "../context/NetworkContext";
 
 const JobsDetails = () => {
 	const params = useParams();
 	const jobId = params?.id;
+	const isOnline = useContext(NetworkContext);
 	const [isLoading, setIsLoading] = useState(true);
 	const [job, setJob] = useState(null);
 
@@ -18,24 +21,14 @@ const JobsDetails = () => {
 	 */
 	const fetchJob = async () => {
 		try {
-			const response = await getJobById(jobId);
+			const response = await handleSlowInternet(() => getJobById(jobId));
 			setJob(response?.data);
 		} catch (error) {
-			toast.error("Something went wrong");
-			console.log("ERROR(Get Job):");
-			console.log(error);
+			handleError(error);
 		} finally {
 			setIsLoading(false);
 		}
 	};
-
-	/**
-	 * Fetch job
-	 */
-	useEffect(() => {
-		fetchJob();
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
 
 	/**
 	 * Subscribe to socket
@@ -50,6 +43,17 @@ const JobsDetails = () => {
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [socket]);
+
+	/**
+	 * Fetch job
+	 * Refresh on online
+	 */
+	useEffect(() => {
+		if (isOnline && (!jobId || job?.status === JOB_STATUS.pending)) {
+			fetchJob();
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [isOnline]);
 
 	return (
 		<div className="h-full w-full p-6 overflow-hidden">

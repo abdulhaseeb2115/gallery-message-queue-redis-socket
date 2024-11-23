@@ -1,5 +1,9 @@
 import { io } from "socket.io-client";
 
+/**
+ * Socket functions
+ */
+
 let socket = null;
 
 const initializeSocket = () => {

@@ -1,22 +1,9 @@
 import PropTypes from "prop-types";
-import { useNavigate } from "react-router-dom";
 import { JOB_STATUS } from "../constants/index";
 
 const JobCard = ({ id, status, image }) => {
-	const navigate = useNavigate();
-	/**
-	 * Redirect to /job/{id}
-	 */
-	const handleCardClick = () => {
-		navigate(`/job/${id}`);
-	};
-
 	return (
-		<div
-			className="w-72 h-64 bg-white rounded-xl shadow-lg border border-gray-200 p-4"
-			onClick={handleCardClick}
-			role="button"
-		>
+		<div className="w-72 h-64 bg-white rounded-xl shadow-lg border border-gray-200 p-4">
 			{status === JOB_STATUS.resolved && image ? (
 				<img
 					src={image}
