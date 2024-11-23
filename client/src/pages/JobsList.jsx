@@ -5,7 +5,7 @@ import Loader from "../components/Loader";
 import Skeleton from "../components/Skeleton";
 import { SOCKET_EVENT_NAME } from "../constants";
 import { createJob, getJobs } from "../requests";
-import socket from "../socket";
+import { socket } from "../socket";
 
 const JobsList = () => {
 	const [isLoading, setIsLoading] = useState(true);
@@ -56,19 +56,17 @@ const JobsList = () => {
 	useEffect(() => {
 		fetchJobs();
 
-		socket.on(SOCKET_EVENT_NAME, (data) => {
-			setJobs((prevJobs) =>
-				prevJobs.map((job) =>
-					job.id === data.id
-						? { ...job, status: data?.status, image: data?.image }
-						: job
-				)
-			);
-		});
-
-		return () => {
-			socket.off(SOCKET_EVENT_NAME);
-		};
+		if (socket) {
+			socket.on(SOCKET_EVENT_NAME, (data) => {
+				setJobs((prevJobs) =>
+					prevJobs.map((job) =>
+						job.id === data.id
+							? { ...job, status: data?.status, image: data?.image }
+							: job
+					)
+				);
+			});
+		}
 	}, []);
 
 	return (

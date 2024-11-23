@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { getJobById } from "../requests";
 import Loader from "../components/Loader";
 import { JOB_STATUS, SOCKET_EVENT_NAME } from "../constants";
-import socket from "../socket";
+import { socket } from "../socket";
 
 const JobsDetails = () => {
 	const params = useParams();
@@ -35,15 +35,13 @@ const JobsDetails = () => {
 	useEffect(() => {
 		fetchJob();
 
-		socket.on(SOCKET_EVENT_NAME, (data) => {
-			if (jobId == data.id) {
-				setJob(data);
-			}
-		});
-
-		return () => {
-			socket.off(SOCKET_EVENT_NAME);
-		};
+		if (socket) {
+			socket.on(SOCKET_EVENT_NAME, (data) => {
+				if (jobId == data.id) {
+					setJob(data);
+				}
+			});
+		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 

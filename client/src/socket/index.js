@@ -1,4 +1,18 @@
 import { io } from "socket.io-client";
-const socket = io("http://localhost:4000");
 
-export default socket;
+let socket = null;
+
+const initializeSocket = () => {
+	if (!socket) {
+		socket = io(import.meta.env.VITE_API_URL);
+	}
+};
+
+const disconnectSocket = () => {
+	if (socket) {
+		socket.disconnect();
+		socket = null;
+	}
+};
+
+export { initializeSocket, disconnectSocket, socket };
