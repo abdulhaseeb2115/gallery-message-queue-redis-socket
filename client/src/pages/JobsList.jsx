@@ -50,12 +50,15 @@ const JobsList = () => {
 
 	/**
 	 * Fetch jobs
-	 * Subscribe to jobCompleted event
-	 * UnSubscribe on unmount
 	 */
 	useEffect(() => {
 		fetchJobs();
+	}, []);
 
+	/**
+	 * Subscribe to socket
+	 */
+	useEffect(() => {
 		if (socket) {
 			socket.on(SOCKET_EVENT_NAME, (data) => {
 				setJobs((prevJobs) =>
@@ -67,7 +70,8 @@ const JobsList = () => {
 				);
 			});
 		}
-	}, []);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [socket]);
 
 	return (
 		<div className="h-full w-full p-6 overflow-hidden">

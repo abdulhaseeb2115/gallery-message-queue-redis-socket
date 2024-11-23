@@ -7,6 +7,9 @@ import { NotFound } from "./pages/NotFound";
 import { disconnectSocket, initializeSocket } from "./socket";
 
 function App() {
+	/**
+	 * Initialze socket connection
+	 */
 	useEffect(() => {
 		initializeSocket();
 

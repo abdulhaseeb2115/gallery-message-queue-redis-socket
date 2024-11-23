@@ -30,11 +30,17 @@ const JobsDetails = () => {
 	};
 
 	/**
-	 *
+	 * Fetch job
 	 */
 	useEffect(() => {
 		fetchJob();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 
+	/**
+	 * Subscribe to socket
+	 */
+	useEffect(() => {
 		if (socket) {
 			socket.on(SOCKET_EVENT_NAME, (data) => {
 				if (jobId == data.id) {
@@ -43,7 +49,7 @@ const JobsDetails = () => {
 			});
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+	}, [socket]);
 
 	return (
 		<div className="h-full w-full p-6 overflow-hidden">
