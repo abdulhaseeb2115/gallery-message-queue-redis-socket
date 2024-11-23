@@ -27,7 +27,7 @@ const worker = new Worker(
 
 		// Step 2
 		console.log("-- Worker added a delay:", delay);
-		await new Promise((resolve) => setTimeout(resolve, 5 * 1000));
+		await new Promise((resolve) => setTimeout(resolve, delay * 1000));
 
 		try {
 			const response = await fetch(
