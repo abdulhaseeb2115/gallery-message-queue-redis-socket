@@ -1,12 +1,12 @@
 import { Worker } from "bullmq";
-import { io } from "./app.js";
+import { io } from "../app.js";
 import {
 	JOB_STATUS,
 	QUEUE_NAME,
 	SOCKET_EVENT_NAME,
-} from "./constants/index.js";
-import { readJobs, writeJobs } from "./utils/fileHandler.js";
-import connection from "./utils/redisConnection.js";
+} from "../constants/index.js";
+import { readJobs, writeJobs } from "../utils/fileHandler.js";
+import connection from "../utils/redisConnection.js";
 
 /**
  * Run jobs in a queue
@@ -100,3 +100,5 @@ worker.on("failed", (job, err) => {
 		writeJobs(jobs);
 	}
 });
+
+export { worker };

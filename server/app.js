@@ -4,6 +4,7 @@ import express from "express";
 import { createServer } from "http";
 import { Server } from "socket.io";
 import jobsRoutes from "./routes/jobRoutes.js";
+import "./workers/jobWorker.js";
 
 dotenv.config();
 
