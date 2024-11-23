@@ -31,6 +31,14 @@ const JobsDetails = () => {
 	};
 
 	/**
+	 * Fetch job
+	 */
+	useEffect(() => {
+		fetchJob();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
+
+	/**
 	 * Subscribe to socket
 	 */
 	useEffect(() => {
@@ -45,7 +53,6 @@ const JobsDetails = () => {
 	}, [socket]);
 
 	/**
-	 * Fetch job
 	 * Refresh on online
 	 */
 	useEffect(() => {
