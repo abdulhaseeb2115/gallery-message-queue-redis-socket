@@ -77,7 +77,7 @@ The backend consists of two main components: the **Server** and the **Queue Work
 ## Deployed Links
 - **Client (Frontend)**: [http://3.106.127.210:3000/](http://3.106.127.210:3000/)
 - **Server (Backend)**: [http://3.106.127.210:4000/](http://3.106.127.210:4000/)
-- **Working Demo (Loom Video)**: [Link to Loom Video](#)
+- **Working Demo (Includes Chapters)**: [Link to Loom Video](https://share.vidyard.com/watch/y2EJhQvkjUVai55g5FFwch?)
 
 ---
 
