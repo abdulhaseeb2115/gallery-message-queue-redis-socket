@@ -29,7 +29,7 @@ The application is built using **React.js** for the frontend and **Node.js/Expre
 
 - **Real-Time Job Management**: Users can create multiple jobs, and each job's status is updated in real-time on the frontend.
 - **Job Creation and Details**: Users can create new jobs, view job details, and track their status.
-- **Handling Slow/No Internet**: The front end is built to gracefully handle slow or no internet connections, ensuring a smooth user experience.
+- **Handling Slow/No Internet**: The front end is built to gracefully handle slow or no internet connections, ensuring a smooth user experience. However, this functionality is primarily supported on Chrome and may not be available on all browsers.
 - **Parallel Job Execution**: The backend processes jobs in parallel, with job completion times being random.
 
 ---
