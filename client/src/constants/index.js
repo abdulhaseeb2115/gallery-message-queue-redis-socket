@@ -5,3 +5,5 @@ export const JOB_STATUS = {
 };
 
 export const SOCKET_EVENT_NAME = "jobCompleted";
+
+export const SLOW_REQUEST_DELAY = 2000;

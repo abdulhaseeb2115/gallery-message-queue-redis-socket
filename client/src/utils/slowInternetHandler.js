@@ -1,20 +1,17 @@
 import { toast } from "react-hot-toast";
+import { SLOW_REQUEST_DELAY } from "../constants";
 
 /**
  * Show a "slow internet" toast
  */
 
-let timeoutId;
 const handleSlowInternet = async (action) => {
-	try {
-		timeoutId = setTimeout(() => {
-			toast("🚀 Loading... Good things take time!", { id: "slow-internet" });
-		}, 3000);
-		const response = await action();
-		return response;
-	} finally {
-		clearTimeout(timeoutId);
-	}
+	const timeoutId = setTimeout(() => {
+		toast("🚀 Loading... Good things take time!", { id: "slow-internet" });
+	}, SLOW_REQUEST_DELAY);
+	const response = await action();
+	clearTimeout(timeoutId);
+	return response;
 };
 
 export default handleSlowInternet;
