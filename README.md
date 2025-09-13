@@ -1,6 +1,6 @@
-# Calo Task
+# Image Gallery with BullMQ Redis and Socket
 
-This test application was developed for the task provided by Calo. The app allows users to create jobs with a simple button click. Multiple jobs can be executed in parallel, each taking a random amount of time to complete. Upon completion, the job data is sent to the client in real-time using Socket.io.
+The app allows users to create jobs with a simple button click. Multiple jobs can be executed in parallel, each taking a random amount of time to complete. Upon completion, the job data is sent to the client in real-time using Socket.io.
 
 The application is built using **React.js** for the frontend and **Node.js/Express.js** for the backend.
 
